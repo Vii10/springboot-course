@@ -1,0 +1,1 @@
+ComponentRegistration = Objeto que precisa estar registrado no mecanismo de injeção de dependência do framework
