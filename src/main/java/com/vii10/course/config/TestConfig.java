@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Profile;
 import com.vii10.course.entities.User;
 import com.vii10.course.repositories.UserRepository;
 
-//Dizendo ao String que essa classe é específica de configuração:
+//Dizendo ao Spring que essa classe é específica de configuração:
 @Configuration
-//Dizendo ao String que essa classe é de configuração específica para o perfil de teste
+//Dizendo ao Spring que essa classe é de configuração específica para o perfil de teste
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
 //CommandLineRunner puxa um método para execução automática
