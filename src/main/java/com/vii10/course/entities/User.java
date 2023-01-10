@@ -2,11 +2,16 @@
 package com.vii10.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +26,13 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+	/*Segundo o diagrama: A classe User tem vários pedidos já instanciados, o que explica o List recebendo um novo arraylist
+	 * --------------------------------------------------------------------------------------------------------------------
+	 * *Mapeamento opcional abaixo*
+	 * Se quisermos acessar o objeto do tipo User e os pedidos feitos pelo User, basta mapear do lado do Um para Muitos */
+	@JsonIgnore //Para que não haja looping de chamada de user-order, se faz necessário usar a anotação para ignorar o Json em um dos lados
+	@OneToMany(mappedBy = "client") //Atributo do outro lado a associação
+	private List<Order> orders = new ArrayList<>();
 
 	public User() {
 	}
@@ -73,7 +85,11 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	//Coleções possuem somente a função GET()
+	public List<Order> getOrders() {
+		return orders;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

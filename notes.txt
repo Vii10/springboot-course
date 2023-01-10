@@ -1,1 +1,3 @@
 ComponentRegistration = Objeto que precisa estar registrado no mecanismo de injeção de dependência do framework
+
+spring.jpa.open-in-view=true //De forma automatica, permite que o jackson pegue os pedidos associados aos usuários, acionando o JPA para pegá-los
