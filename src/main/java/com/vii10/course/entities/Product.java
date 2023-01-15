@@ -9,8 +9,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -28,7 +30,11 @@ public class Product implements Serializable {
 	
 	//implementando as associações de multiplas categorias segundo o UML
 	//Para garantir que não haja repetições de categorias, usaremos a coleção de SET e não de List
-	@Transient //Impede que o JPA tente interpretar a linha abaixo
+	
+	@ManyToMany //Anotação que transforma a coleção em uma tabela de associação do modelo relacional
+	@JoinTable(name = "tb_product_category", 
+	joinColumns = @JoinColumn(name = "product_id"), //Configurando o nome da tabela e as chaves estrangeiras associadas
+	inverseJoinColumns = @JoinColumn(name = "category_id")) //Incluindo chave estrangeira da outra entidade inversa, que é a categoria
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {}
