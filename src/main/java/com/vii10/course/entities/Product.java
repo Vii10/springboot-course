@@ -30,7 +30,6 @@ public class Product implements Serializable {
 	
 	//implementando as associações de multiplas categorias segundo o UML
 	//Para garantir que não haja repetições de categorias, usaremos a coleção de SET e não de List
-	
 	@ManyToMany //Anotação que transforma a coleção em uma tabela de associação do modelo relacional
 	@JoinTable(name = "tb_product_category", 
 	joinColumns = @JoinColumn(name = "product_id"), //Configurando o nome da tabela e as chaves estrangeiras associadas
