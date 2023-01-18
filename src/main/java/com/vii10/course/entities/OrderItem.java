@@ -69,6 +69,12 @@ public class OrderItem implements Serializable{
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	
+	//Metodo subtotal do UML
+	public Double getSubTotal() {
+		//Precisa ser um get para poder aparecer no Json
+		return price * quantity;
+	}
 
 	@Override
 	public int hashCode() {
