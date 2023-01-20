@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,10 +61,17 @@ public class UserResource {
 	
 	//Deletando usuario atraves do Rest com um metodo http
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete (@PathVariable Long id){
+	public ResponseEntity<Void> delete(@PathVariable Long id){
 	//O PathVariable faz com que a variavel seja reconhecida pelo URL
 		userService.delete(id);
 		//Mesmo sendo um metodo void, é necessário usar o return com o ResponseEntity
 		return ResponseEntity.noContent().build();
+	}
+	
+	//Atualizando informações do usuario com a anotação put do Rest
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
+		obj = userService.update(id, obj);
+		return ResponseEntity.ok().body(obj);
 	}
 }
