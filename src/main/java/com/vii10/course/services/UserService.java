@@ -37,4 +37,9 @@ public class UserService {
 		//Essa funcao retorna um objeto como padrao
 		return repository.save(user);
 	}
+	
+	//Deletando usuario pelo Id
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }

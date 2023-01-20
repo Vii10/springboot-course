@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,4 +58,12 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(user);
 	}
 	
+	//Deletando usuario atraves do Rest com um metodo http
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete (@PathVariable Long id){
+	//O PathVariable faz com que a variavel seja reconhecida pelo URL
+		userService.delete(id);
+		//Mesmo sendo um metodo void, é necessário usar o return com o ResponseEntity
+		return ResponseEntity.noContent().build();
+	}
 }
