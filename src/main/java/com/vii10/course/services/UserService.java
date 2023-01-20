@@ -31,4 +31,10 @@ public class UserService {
 		Optional <User> obj = repository.findById(id); //Metodo que filtra apenas o tipo passado pelo Optional
 		return obj.get(); //Retorna o tipo User que esta dentro do obj, que por sua vez filtrou por id
 	}
+	
+	//Implementando um metodo para salvar um usuario
+	public User insert(User user) {
+		//Essa funcao retorna um objeto como padrao
+		return repository.save(user);
+	}
 }
