@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.vii10.course.entities.User;
 import com.vii10.course.repositories.UserRepository;
+import com.vii10.course.services.exceptions.DatabaseException;
 import com.vii10.course.services.exceptions.ResourceNotFoundException;
 
 //Registrando a classe como componente do spring. Por ser uma classe de serviço, será registrada como tal
@@ -44,7 +47,18 @@ public class UserService {
 	
 	//Deletando usuario pelo Id
 	public void delete(Long id) {
+		try {
 		repository.deleteById(id);
+		}
+		//Tratamento de exceptions na hora da deleção de usuário
+		//Se o usuario não existir
+		catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		}
+		//Se tiver produtos associados a ele
+		catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 	
 	//Atualizando usuario pelo Id
