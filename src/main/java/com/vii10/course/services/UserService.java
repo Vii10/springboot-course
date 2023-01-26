@@ -13,6 +13,8 @@ import com.vii10.course.repositories.UserRepository;
 import com.vii10.course.services.exceptions.DatabaseException;
 import com.vii10.course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 //Registrando a classe como componente do spring. Por ser uma classe de serviço, será registrada como tal
 @Service
 public class UserService {
@@ -63,13 +65,17 @@ public class UserService {
 	
 	//Atualizando usuario pelo Id
 	public User update(Long id, User obj) {
-		
+		try {
 		//Instancia um novo usuario sem coloca-lo no banco de dados ainda
 		User entity = repository.getReferenceById(id);
 		
 		//Atualizando entity com base nos dados de obj
 		updateData(entity, obj);
 		return repository.save(entity);
+		}catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);	
+		}
+		
 	}
 	
 	//Metodo de atualização
